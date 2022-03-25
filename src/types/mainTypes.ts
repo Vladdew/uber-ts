@@ -76,7 +76,7 @@ interface setModalWindow {
   type: ActionTypes.SET_MODAL_WINDOW;
   payload: boolean;
 }
-export type mainTypes =
+export type actionType =
   | saveRestaurants
   | saveRestaurantPage
   | setRestaurantsError

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { Route, Routes } from "react-router-dom";
 import PropTypes from "prop-types";
 import { RestaurantsListPage } from "../RestaurantsListPage";
@@ -16,6 +17,9 @@ interface Iprops {
 }
 
 export const App = ({ modalWindow, returnCartFromLS }: Iprops) => {
+  // const state = useTypedSelector(state => state);
+  // console.log(state);
+
   useEffect(() => {
     const cartLS = localStorage.getItem("cart");
 

@@ -1,4 +1,4 @@
-import { ActionTypes, mainState, mainTypes } from "../types/mainTypes";
+import { ActionTypes, mainState, actionType } from "../types/mainTypes";
 
 const initialState: mainState = {
   restaurantsListData: null,
@@ -12,7 +12,7 @@ const initialState: mainState = {
   totalItemCheckout: 0,
 };
 
-export function mainReducer(state = initialState, action: mainTypes) {
+export function mainReducer(state = initialState, action: actionType) {
   switch (action.type) {
     case ActionTypes.SAVE_RESTAURANTS: {
       const { payload } = action;

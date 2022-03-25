@@ -1,17 +1,17 @@
 @import "../../styles/variables.scss";
 
-.modal{
+.modal {
   z-index: 2;
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(0,0,0, 0.7);
+  background: rgba(0, 0, 0, 0.7);
 
   &-window {
     position: relative;
-    margin: 80px auto 0;
+    margin: 20px auto 0;
     background: #fff;
     width: 716px;
     min-height: 300px;
@@ -22,9 +22,9 @@
       right: 24px;
       width: 46px;
       height: 46px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
       border-radius: 50%;
-      background: rgba(211,211,211,0.7);
+      background: rgba(211, 211, 211, 0.7);
       &:hover {
         cursor: pointer;
       }
@@ -90,7 +90,6 @@
       background: #fff;
       max-width: 340px;
     }
-
   }
 }
 
@@ -103,7 +102,7 @@
       margin-right: 17px;
     }
 
-    &:hover{
+    &:hover {
       cursor: pointer;
     }
   }
@@ -112,4 +111,3 @@
     margin-right: 17px;
   }
 }
-

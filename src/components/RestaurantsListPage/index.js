@@ -1,26 +1,26 @@
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-import { RestaurantsListPage } from './RestaurantsListPage';
-import { loadRestaurants } from '../../store/actions';
+import { RestaurantsListPage } from "./RestaurantsListPage";
+import { loadRestaurants } from "../../store/actions";
 import {
   selectRestaurantsList,
   selectRestaurantsListError,
   selectIsLoading,
-} from '../../store/selector';
+} from "../../store/selector";
 
-const mapState2Props = state => ({
+const mapStateToProps = state => ({
   restaurantsListData: selectRestaurantsList(state),
   error: selectRestaurantsListError(state),
   isLoading: selectIsLoading(state),
 });
 
-const mapDispatch2Props = {
+const mapDispatchToProps = {
   loadRestaurants,
 };
 
 const Enhanced = connect(
-  mapState2Props,
-  mapDispatch2Props
+  mapStateToProps,
+  mapDispatchToProps
 )(RestaurantsListPage);
 
 export { Enhanced as RestaurantsListPage };
