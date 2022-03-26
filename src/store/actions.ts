@@ -13,7 +13,6 @@ export const calculateCartTotal = () => ({
 });
 
 export const addToCart = (product: any) => {
-  console.log(product);
   return {
     type: ActionTypes.ADD_TO_CART,
     payload: product,
@@ -51,7 +50,7 @@ export const loadRestaurants = () => (dispatch: Dispatch<actionType>) => {
     .catch(error =>
       dispatch({
         type: ActionTypes.SET_LOAD_RESTAURANTS_ERROR,
-        payload: error,
+        payload: error.message,
       })
     )
     .finally(() =>

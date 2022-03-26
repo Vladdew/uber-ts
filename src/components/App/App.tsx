@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { Route, Routes } from "react-router-dom";
 import PropTypes from "prop-types";
-import { RestaurantsListPage } from "../RestaurantsListPage";
+import RestaurantsListPage from "../RestaurantsListPage/RestaurantsListPage";
 import { Header } from "../Header";
 import Footer from "../Footer";
 import { Cart } from "../Cart";
@@ -24,7 +24,7 @@ export const App = ({ modalWindow, returnCartFromLS }: Iprops) => {
     const cartLS = localStorage.getItem("cart");
 
     if (cartLS) {
-      returnCartFromLS(JSON.parse(cartLS));
+      return returnCartFromLS(JSON.parse(cartLS));
     }
   }, [returnCartFromLS]);
 
