@@ -1,32 +1,36 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { useActions } from "../../hooks/useActions";
+import { selectStateModalWindow } from "../../store/selector";
+
 import { Route, Routes } from "react-router-dom";
-import PropTypes from "prop-types";
 import RestaurantsListPage from "../RestaurantsListPage/RestaurantsListPage";
-import { Header } from "../Header";
-import Footer from "../Footer";
-import { Cart } from "../Cart";
-import { RestaurantPage } from "../RestaurantPage";
-import { Order } from "../Order";
+import { Header } from "../Header/Header";
+import Footer from "../Footer/Footer";
+import Cart from "../Cart/Cart";
+import { RestaurantPage } from "../RestaurantPage/RestaurantPage";
+import { Order } from "../Order/Order";
 
 import "./App.scss";
 
-interface Iprops {
-  modalWindow: boolean;
-  returnCartFromLS: (cartLS: string) => void;
-}
-
-export const App = ({ modalWindow, returnCartFromLS }: Iprops) => {
-  // const state = useTypedSelector(state => state);
-  // console.log(state);
+export const App: React.FC = () => {
+  const state = useTypedSelector(state => state);
+  const modalWindow: boolean = selectStateModalWindow(state);
+  const { returnCartFromLS, calculateCartTotal } = useActions();
 
   useEffect(() => {
     const cartLS = localStorage.getItem("cart");
-
-    if (cartLS) {
-      return returnCartFromLS(JSON.parse(cartLS));
+    function a() {
+      if (cartLS) {
+        returnCartFromLS(JSON.parse(cartLS));
+      }
+      calculateCartTotal();
     }
-  }, [returnCartFromLS]);
+    if (cartLS) {
+      return a();
+    }
+  }, []);
 
   return (
     <>
@@ -42,9 +46,4 @@ export const App = ({ modalWindow, returnCartFromLS }: Iprops) => {
       {modalWindow && <Order />}
     </>
   );
-};
-
-App.propTypes = {
-  modalWindow: PropTypes.bool.isRequired,
-  returnCartFromLS: PropTypes.func.isRequired,
 };

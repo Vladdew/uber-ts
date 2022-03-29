@@ -2,21 +2,23 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useActions } from "../../hooks/useActions";
+import { mainState } from "../../types/mainTypes";
+
 import {
   selectRestaurantsList,
   selectRestaurantsListError,
   selectIsLoading,
 } from "../../store/selector";
-import RestaurantCard from "../RestaurantCard";
+import { RestaurantCard } from "../RestaurantCard/RestaurantCard";
 import Loader from "../Loader";
-import Error from "../Error";
+import Error from "../Error/Error";
 
 import "./RestaurantListPage.scss";
 
 const DEFAULT_ETA_RANGE = "20 - 30 min";
 
 const RestaurantsListPage: React.FC = () => {
-  const state = useTypedSelector(state => state);
+  const state: mainState = useTypedSelector(state => state);
 
   const restaurantsListData: any[] | null = selectRestaurantsList(state);
   const isLoading: boolean = selectIsLoading(state);

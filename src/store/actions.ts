@@ -3,7 +3,7 @@ import { Dispatch } from "redux";
 
 const BASE_URL = "https://mate-uber-eats-api.herokuapp.com/api/v1/";
 
-export const setOrder = (uuid: string) => ({
+export const setOrder = (uuid: string | null) => ({
   type: ActionTypes.SET_ORDER,
   payload: uuid,
 });

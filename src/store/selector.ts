@@ -1,6 +1,7 @@
-import { createSelector } from 'reselect';
+import { createSelector } from "reselect";
+import { mainState } from "../types/mainTypes";
 
-const rootSelector = state => state;
+const rootSelector = (state: mainState) => state;
 
 export const selectRestaurantsList = createSelector(
   rootSelector,
@@ -11,7 +12,7 @@ export const selectRestaurantsList = createSelector(
 
     const { feedItems, storesMap } = restaurantsListData;
 
-    return feedItems.map(({ uuid }) => storesMap[uuid]);
+    return feedItems.map(({ uuid }: { uuid: string }) => storesMap[uuid]);
   }
 );
 
@@ -24,7 +25,7 @@ export const selectResorauntSections = createSelector(
 
     const { sectionsMap, sections } = restaurantPageData;
 
-    return sections.map(id => sectionsMap[id]);
+    return sections.map((id: string) => sectionsMap[id]);
   }
 );
 
@@ -33,23 +34,20 @@ export const selectRestorauntItems = createSelector(
   selectResorauntSections,
   ({ restaurantPageData }, restorauntSections) => {
     if (!restaurantPageData) {
-      return [];
+      return [] as any;
     }
 
     const { entitiesMap } = restaurantPageData;
 
-    return restorauntSections
-      .map(item => ({
-        ...item,
-        itemUuids: item.itemUuids.map(uid => entitiesMap[uid]),
-      }));
+    return restorauntSections.map((item: any) => ({
+      ...item,
+      itemUuids: item.itemUuids.map((uuid: string) => entitiesMap[uuid]),
+    }));
   }
 );
 
-export const selectEtaRange = (
-  state,
-  props
-) => state.storesMap[props.uuid].etaRange.text;
+export const selectEtaRange = (state: mainState, props: any) =>
+  state.storesMap[props.uuid].etaRange.text;
 
 export const selectRestaurantPageData = createSelector(
   rootSelector,
@@ -77,16 +75,13 @@ export const selectIsLoading = createSelector(
   ({ isLoading }) => isLoading
 );
 
-export const selectOrder = createSelector(
-  rootSelector,
-  ({ order }) => {
-    if (!order) {
-      return {};
-    }
-
-    return order;
+export const selectOrder = createSelector(rootSelector, ({ order }) => {
+  if (!order) {
+    return {};
   }
-);
+
+  return order;
+});
 
 export const selectStateModalWindow = createSelector(
   rootSelector,

@@ -1,9 +1,12 @@
-import React from "react";
-
+import { FunctionComponent } from "react";
 import "./CartProduct.scss";
+import { ItemProductType, CardProductProps } from "../../types/simpleTypes";
 
-const CartProduct = ({ product, changeQty }) => {
-  const { price, title, imageUrl, amount, uuid } = product;
+const CartProduct: FunctionComponent<CardProductProps> = ({
+  product,
+  changeQty,
+}) => {
+  const { price, title, imageUrl, amount, uuid }: ItemProductType = product;
 
   return (
     <div className="cart-product">
@@ -17,7 +20,6 @@ const CartProduct = ({ product, changeQty }) => {
           onClick={() => changeQty("-", uuid)}
           className="counter__change-amount"
           type="button"
-          // onClick={decrementCounter}
         >
           <img src="./images/button-minus.svg" alt="icon minus" />
         </button>
@@ -28,7 +30,6 @@ const CartProduct = ({ product, changeQty }) => {
           onClick={() => changeQty("+", uuid)}
           className="counter__change-amount"
           type="button"
-          // onClick={incrementCounter}
         >
           <img src="./images/button-plus.svg" alt="icon plus" />
         </button>
@@ -38,15 +39,3 @@ const CartProduct = ({ product, changeQty }) => {
 };
 
 export default CartProduct;
-
-// CartProduct.propTypes = {
-//   changeQty: PropTypes.func.isRequired,
-//   product: PropTypes.shape({
-//     price: PropTypes.number.isRequired,
-//     amount: PropTypes.number.isRequired,
-//     title: PropTypes.string.isRequired,
-//     uuid: PropTypes.string.isRequired,
-//     imageUrl: PropTypes.string.isRequired,
-//   }).isRequired,
-
-// };

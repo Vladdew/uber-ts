@@ -1,34 +1,72 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useState } from "react";
+import { store } from "../../store";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { useActions } from "../../hooks/useActions";
+import { ItemProductType } from "../../types/simpleTypes";
+import { mainState } from "../../types/mainTypes";
 
-import Loader from '../Loader';
-import Error from '../Error';
-import './Order.scss';
-import { store } from '../../store';
+import {
+  selectOrder,
+  selectRestaurantsListError,
+  selectIsLoading,
+} from "../../store/selector";
+import Loader from "../Loader";
+import Error from "../Error/Error";
+import "./Order.scss";
 
-export const Order = ({
-  addToCart,
-  deleteOrder,
-  order,
-  isLoading,
-  error,
-}) => {
+export const Order = () => {
+  const state = useTypedSelector(s => s);
   const [counter, setCount] = useState(1);
-  const incrementCounter = () => setCount(counter + 1);
-  const decrementCounter = () => setCount(counter - 1);
 
-  const addToCartHandler = (product, amount) => {
+  const order = selectOrder(state);
+  const isLoading = selectIsLoading(state);
+  const error = selectRestaurantsListError(state);
+
+  const { setOrder, addToCart, setModalWindow, calculateCartTotal } =
+    useActions();
+
+  const deleteOrder = () => {
+    setModalWindow(false);
+    setOrder(null);
+  };
+
+  const addToCartComposed = (product: ItemProductType) => {
+    addToCart(product);
+    calculateCartTotal();
+    setModalWindow(false);
+  };
+
+  const incrementCounter = () => setCount(counter + 1);
+
+  const decrementCounter = () => {
+    if (counter <= 1) return;
+    return setCount(counter - 1);
+  };
+  const {
+    imageUrl,
+    title,
+    itemDescription,
+    price,
+  }: {
+    imageUrl: string;
+    title: string;
+    itemDescription: string;
+    price: string;
+  } = order;
+
+  const addToCartHandler = (product: ItemProductType, amount: number) => {
     const payload = product;
 
     payload.amount = amount;
-    addToCart(payload);
-    localStorage.setItem('cart', JSON.stringify(store.getState().cart));
+    addToCartComposed(payload);
+    localStorage.setItem(
+      "cart",
+      JSON.stringify((store.getState() as mainState).cart)
+    );
   };
 
-  const { imageUrl, title, itemDescription, price } = order;
-
-  const srcImage = imageUrl || './images/no_image.png';
-  const srcTitle = title || 'no-image icon';
+  const srcImage = imageUrl || "./images/no_image.png";
+  const srcTitle = title || "no-image icon";
 
   if (isLoading) {
     return <Loader />;
@@ -82,13 +120,8 @@ export const Order = ({
               </div>
             </div>
           </>
-        )
-        }
-        <div
-          onClick={deleteOrder}
-          onKeyPress={deleteOrder}
-          role="presentation"
-        >
+        )}
+        <div onClick={deleteOrder} role="presentation">
           <img
             className="modal-window__button-close"
             src="./images/button-close.svg"
@@ -99,17 +132,4 @@ export const Order = ({
       </div>
     </aside>
   );
-};
-
-Order.propTypes = {
-  isLoading: PropTypes.bool,
-  error: PropTypes.string,
-  deleteOrder: PropTypes.func.isRequired,
-  order: PropTypes.shape().isRequired,
-  addToCart: PropTypes.func.isRequired,
-};
-
-Order.defaultProps = {
-  error: null,
-  isLoading: false,
 };

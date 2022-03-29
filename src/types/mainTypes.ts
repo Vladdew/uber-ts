@@ -1,13 +1,14 @@
 export interface mainState {
-  restaurantsListData: any[] | null;
-  restaurantPageData: any[] | null;
+  restaurantsListData: any;
+  restaurantPageData: any;
   isLoading: boolean;
-  error: never | null;
+  error: string | null;
   order: any;
   showModalWindow: boolean;
   cart: any[];
   totalCheckout: number;
   totalItemCheckout: number;
+  storesMap?: any;
 }
 
 export enum ActionTypes {

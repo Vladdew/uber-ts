@@ -1,10 +1,8 @@
-import React from 'react';
+import Select from "../Select";
 
-import Select from '../Select';
+import "./Footer.scss";
 
-import './Footer.scss';
-
-const Footer = () => (
+const Footer: React.FC = () => (
   <footer className="footer">
     <div className="content">
       <div className="footer__top-part">
@@ -19,8 +17,8 @@ const Footer = () => (
             <Select
               name="language"
               options={[
-                { value: 'en', label: 'English' },
-                { value: 'ua', label: 'Ukrainian' },
+                { value: "en", label: "English" },
+                { value: "ua", label: "Ukrainian" },
               ]}
               value="en"
               iconUrl="./images/world.svg"
@@ -28,26 +26,13 @@ const Footer = () => (
           </div>
 
           <div className="footer__mobile-apps">
-            <a
-              className="footer__mobile-app"
-              href="# "
-            >
-              <img
-                src="./images/app-store.png"
-                alt="App Store"
-              />
+            <a className="footer__mobile-app" href="# ">
+              <img src="./images/app-store.png" alt="App Store" />
             </a>
-            <a
-              className="footer__mobile-app"
-              href="# "
-            >
-              <img
-                src="./images/google-play.png"
-                alt="Google Play"
-              />
+            <a className="footer__mobile-app" href="# ">
+              <img src="./images/google-play.png" alt="Google Play" />
             </a>
           </div>
-
         </div>
         <div className="footer__top-links links">
           <a href="# " className="links__link links__link--intended">
@@ -76,16 +61,14 @@ const Footer = () => (
         </div>
       </div>
       <div className="footer__bottom-part">
-        <p className="footer__copyright">
-          © 2019 Uber Technologies Inc.
-        </p>
+        <p className="footer__copyright">© 2019 Uber Technologies Inc.</p>
         <div className="footer__misc">
           <div className="footer__bottom-links links">
             <a href="# " className="links__link">
               Privacy policy
             </a>
             <a href="# " className="links__link">
-              Terms of  use
+              Terms of use
             </a>
             <a href="# " className="links__link">
               Pricing

@@ -1,11 +1,9 @@
-import React from "react";
 import { Formik } from "formik";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
-import PropTypes from "prop-types";
 import "./FormCheckout.scss";
 
-const FormCheckout = () => (
+const FormCheckout: React.FC = () => (
   <Formik
     initialValues={{
       name: "",
@@ -59,15 +57,3 @@ const FormCheckout = () => (
 );
 
 export default FormCheckout;
-
-FormCheckout.propTypes = {
-  values: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  handleSubmit: PropTypes.func,
-  handleChange: PropTypes.func,
-};
-
-FormCheckout.defaultProps = {
-  values: null,
-  handleSubmit: null,
-  handleChange: null,
-};

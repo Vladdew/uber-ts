@@ -1,29 +1,34 @@
-import React, { useEffect } from "react";
-// import PropTypes from "prop-types";
+import { useEffect } from "react";
+import { useActions } from "../../hooks/useActions";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
+import {
+  selectRestaurantPageData,
+  selectResorauntSections,
+} from "../../store/selector";
 import { useParams } from "react-router-dom";
 import Loader from "../Loader";
-import { Section } from "../Section";
+import { Section } from "../Section/Section";
 
 import "./RestaurantPage.scss";
 
 const DEFAULT_ETA_RANGE = "20 - 30 min";
 
-export const RestaurantPage = ({
-  loadRestaurantPage,
-  restaurantPageData,
-  restaurantSections,
-}) => {
+export const RestaurantPage: React.FC = () => {
   const params = useParams();
+  const state = useTypedSelector(s => s);
+  const restaurantPageData = selectRestaurantPageData(state);
+  const restaurantSections = selectResorauntSections(state);
+  const { loadRestaurantPage } = useActions();
 
   useEffect(() => {
-    loadRestaurantPage(params.uuid);
+    if (params.uuid) loadRestaurantPage(params.uuid);
     window.scrollTo(0, 0);
-  }, [params.uuid, loadRestaurantPage]);
+  }, []);
 
-  const handleClickItemMenu = id => {
+  const handleClickItemMenu = (id: string) => {
     const sectionId = id.slice(2);
     const section = document.getElementById(sectionId);
-    const positionSection = section.getBoundingClientRect();
+    const positionSection = section!.getBoundingClientRect();
 
     window.scrollTo({
       left: 0,
@@ -41,13 +46,16 @@ export const RestaurantPage = ({
 
   const heroImageUrl = heroImageUrls[heroImageUrls.length - 1].url;
 
-  const heroImageUrlSrcSet = heroImageUrls.reduce((acc, item, index) => {
-    let str = `${item.url} ${item.width}w`;
+  const heroImageUrlSrcSet = heroImageUrls.reduce(
+    (acc: string, item: { url: string; width: number }, index: number) => {
+      let str = `${item.url} ${item.width}w`;
 
-    index !== heroImageUrls.length - 1 && (str = `${str},`);
+      index !== heroImageUrls.length - 1 && (str = `${str},`);
 
-    return `${acc}${str}`;
-  }, "");
+      return `${acc}${str}`;
+    },
+    ""
+  );
 
   return (
     <>
@@ -94,56 +102,27 @@ export const RestaurantPage = ({
 
       <div className="content">
         <nav className="restoraunt-menu">
-          {restaurantSections.map(item => (
-            <span
-              id={`m_${item.uuid}`}
-              className="restoraunt-menu__item"
-              key={item.uuid}
-              onClick={event => handleClickItemMenu(event.target.id)}
-              onKeyPress={event => handleClickItemMenu(event.target.id)}
-              role="presentation"
-            >
-              {item.title}
-            </span>
-          ))}
+          {restaurantSections.map((item: any) => {
+            return (
+              <span
+                id={`m_${item.uuid}`}
+                className="restoraunt-menu__item"
+                key={item.uuid}
+                onClick={event =>
+                  handleClickItemMenu((event.target as HTMLSpanElement).id)
+                }
+                role="presentation"
+              >
+                {item.title}
+              </span>
+            );
+          })}
         </nav>
 
-        {restaurantSections.map(item => (
+        {restaurantSections.map((item: any) => (
           <Section category={item} key={item.uuid} />
         ))}
       </div>
     </>
   );
-};
-
-// const restorauntShape = {
-//   title: PropTypes.string,
-//   uuid: PropTypes.string,
-//   categories: PropTypes.arrayOf(PropTypes.string),
-//   etaRange: PropTypes.string,
-//   location: PropTypes.shape({
-//     address: PropTypes.string,
-//     city: PropTypes.string,
-//   }),
-// };
-
-// RestaurantPage.propTypes = {
-//   loadRestaurantPage: PropTypes.func.isRequired,
-//   restaurantPageData: PropTypes.shape(restorauntShape),
-//   restaurantSections: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       uuid: PropTypes.string,
-//       tittle: PropTypes.string,
-//     })
-//   ),
-//   match: PropTypes.shape({
-//     params: PropTypes.shape({
-//       uuid: PropTypes.string,
-//     }),
-//   }),
-// };
-
-RestaurantPage.defaultProps = {
-  restaurantPageData: null,
-  restaurantSections: [],
 };
