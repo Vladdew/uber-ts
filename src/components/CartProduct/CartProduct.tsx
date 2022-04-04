@@ -1,11 +1,7 @@
-import { FunctionComponent } from "react";
-import "./CartProduct.scss";
 import { ItemProductType, CardProductProps } from "../../types/interfaces";
+import "./CartProduct.scss";
 
-const CartProduct: FunctionComponent<CardProductProps> = ({
-  product,
-  changeQty,
-}) => {
+const CartProduct: React.FC<CardProductProps> = ({ product, changeQty }) => {
   const { price, title, imageUrl, amount, uuid }: ItemProductType = product;
 
   return (

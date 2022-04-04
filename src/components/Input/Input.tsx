@@ -1,10 +1,10 @@
-import { FunctionComponent, useState } from "react";
+import { FC, useState } from "react";
 import cx from "classnames";
 
 import { InputProps } from "../../types/interfaces";
 import "./Input.scss";
 
-export const Input: FunctionComponent<InputProps> = props => {
+export const Input: FC<InputProps> = props => {
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus = () => setIsFocused(true);

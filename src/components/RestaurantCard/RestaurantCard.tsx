@@ -1,9 +1,9 @@
-import { FunctionComponent } from "react";
+import { FC } from "react";
 import { RestaurantCardProps } from "../../types/interfaces";
 
 import "./RestaurantCard.scss";
 
-export const RestaurantCard: FunctionComponent<RestaurantCardProps> = ({
+export const RestaurantCard: FC<RestaurantCardProps> = ({
   imageUrl,
   title,
   categories,

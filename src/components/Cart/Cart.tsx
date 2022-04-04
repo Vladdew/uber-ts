@@ -1,14 +1,15 @@
-import React, { useEffect } from "react";
+import { useEffect, FC } from "react";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { store } from "../../store";
 import { mainState } from "../../types/mainTypes";
+import { ItemProductType } from "../../types/interfaces";
 
 import CartProduct from "../CartProduct/CartProduct";
 import FormCheckout from "../FormCheckout/FormCheckout";
 import "./Cart.scss";
 
-const Cart: React.FC = () => {
+const Cart: FC = () => {
   const { cart, totalCheckout } = useTypedSelector(state => state);
   const { changeAmount, calculateCartTotal } = useActions();
 
@@ -34,7 +35,9 @@ const Cart: React.FC = () => {
   });
 
   const changeQty = (param: string, uuid: string): void => {
-    const currentProduct = cart.find((product: any) => product.uuid === uuid);
+    const currentProduct = cart.find(
+      (product: ItemProductType) => product.uuid === uuid
+    );
 
     if (param === "+") {
       currentProduct.amount += 1;
@@ -50,7 +53,7 @@ const Cart: React.FC = () => {
       <h1 className="cart__h1">Cart</h1>
       <div className="cart">
         <div className="cart__goods">
-          {cart.map((product: any) => (
+          {cart.map((product: ItemProductType) => (
             <CartProduct
               product={product}
               key={product.uuid}

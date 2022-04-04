@@ -1,25 +1,23 @@
-import { useState } from "react";
+import { useState, FC } from "react";
 import { Link } from "react-router-dom";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { HeaderStateProps } from "../../types/interfaces";
+import { mainState } from "../../types/mainTypes";
 
 import Input from "../Input";
 import "./Header.scss";
 
-export const Header: React.FC = () => {
-  const {
-    totalCheckout,
-    totalItemCheckout,
-  }: { totalCheckout: number; totalItemCheckout: number } = useTypedSelector(
+export const Header: FC = () => {
+  const { totalCheckout, totalItemCheckout }: mainState = useTypedSelector(
     s => s
   );
-  const [state, setState] = useState({
+  const [state, setState] = useState<HeaderStateProps>({
     address: "",
     time: "",
     search: "",
     isMobileSearchVisible: false,
     isMobileDeliveryInfoVisible: false,
-  } as HeaderStateProps);
+  });
 
   const {
     address,
@@ -29,11 +27,14 @@ export const Header: React.FC = () => {
     isMobileDeliveryInfoVisible,
   } = state;
 
-  const handleChange = ({ target }: any) => {
-    setState({
-      ...state,
-      [target.name]: target.value,
-    });
+  const handleChange = (e: Event) => {
+    const el = e.target as HTMLInputElement;
+    if (el) {
+      setState({
+        ...state,
+        [el.name]: el.value,
+      });
+    }
   };
 
   const toggleSearch = () =>
@@ -72,7 +73,7 @@ export const Header: React.FC = () => {
             <Input
               name="address"
               value={address}
-              onChange={(e: Event) => handleChange(e)}
+              onChange={e => handleChange(e)}
               placeholder="Address"
               iconUrl="./images/place.svg"
             />
@@ -80,7 +81,7 @@ export const Header: React.FC = () => {
             <Input
               name="time"
               value={time}
-              onChange={(e: Event) => handleChange(e)}
+              onChange={e => handleChange(e)}
               placeholder="Time"
               iconUrl=""
               type="time"
@@ -90,7 +91,7 @@ export const Header: React.FC = () => {
           <Input
             name="search"
             value={search}
-            onChange={(e: Event) => handleChange(e)}
+            onChange={e => handleChange(e)}
             placeholder="Search"
             iconUrl="./images/search.svg"
             className="header__search"
@@ -162,7 +163,7 @@ export const Header: React.FC = () => {
                 label="Find"
                 name="search"
                 value={search}
-                onChange={(e: Event) => handleChange(e)}
+                onChange={e => handleChange(e)}
                 placeholder="Search"
                 iconUrl="./images/search.svg"
                 isSmall={false}
@@ -175,7 +176,7 @@ export const Header: React.FC = () => {
                   label="When"
                   name="time"
                   value={time}
-                  onChange={(e: Event) => handleChange(e)}
+                  onChange={e => handleChange(e)}
                   placeholder="Time"
                   iconUrl=""
                   type="time"
@@ -186,7 +187,7 @@ export const Header: React.FC = () => {
                   label="To"
                   name="address"
                   value={address}
-                  onChange={(e: Event) => handleChange(e)}
+                  onChange={e => handleChange(e)}
                   placeholder="Address"
                   iconUrl="./images/place.svg"
                   isSmall={false}

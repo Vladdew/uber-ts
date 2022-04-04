@@ -5,6 +5,12 @@ import {
   selectRestaurantPageData,
   selectResorauntSections,
 } from "../../store/selector";
+import { mainState } from "../../types/mainTypes";
+import {
+  RestaurantPageDataType,
+  restaurantSectionsType,
+  CategoryProps,
+} from "../../types/interfaces";
 import { useParams } from "react-router-dom";
 import Loader from "../Loader";
 import { Section } from "../Section/Section";
@@ -15,9 +21,11 @@ const DEFAULT_ETA_RANGE = "20 - 30 min";
 
 export const RestaurantPage: React.FC = () => {
   const params = useParams();
-  const state = useTypedSelector(s => s);
-  const restaurantPageData = selectRestaurantPageData(state);
-  const restaurantSections = selectResorauntSections(state);
+  const state: mainState = useTypedSelector(s => s);
+  const restaurantPageData: RestaurantPageDataType =
+    selectRestaurantPageData(state);
+  const restaurantSections: restaurantSectionsType =
+    selectResorauntSections(state);
   const { loadRestaurantPage } = useActions();
 
   useEffect(() => {
@@ -102,24 +110,22 @@ export const RestaurantPage: React.FC = () => {
 
       <div className="content">
         <nav className="restoraunt-menu">
-          {restaurantSections.map((item: any) => {
-            return (
-              <span
-                id={`m_${item.uuid}`}
-                className="restoraunt-menu__item"
-                key={item.uuid}
-                onClick={event =>
-                  handleClickItemMenu((event.target as HTMLSpanElement).id)
-                }
-                role="presentation"
-              >
-                {item.title}
-              </span>
-            );
-          })}
+          {restaurantSections.map((item: CategoryProps) => (
+            <span
+              id={`m_${item.uuid}`}
+              className="restoraunt-menu__item"
+              key={item.uuid}
+              onClick={event =>
+                handleClickItemMenu((event.target as HTMLSpanElement).id)
+              }
+              role="presentation"
+            >
+              {item.title}
+            </span>
+          ))}
         </nav>
 
-        {restaurantSections.map((item: any) => (
+        {restaurantSections.map((item: CategoryProps) => (
           <Section category={item} key={item.uuid} />
         ))}
       </div>

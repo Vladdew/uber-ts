@@ -1,10 +1,51 @@
+export interface RestaurantPageDataType {
+  uuid: string;
+  title: string;
+  heroImageUrls: { url: string; width: number }[];
+  categories: string[];
+  etaRange: string | null;
+  location: { address: string };
+}
+
+export interface SectionProps {
+  category: CategoryProps;
+}
+
+export interface CategoryProps {
+  displayType: any;
+  itemUuids: string[];
+  subtitle: string;
+  title: string;
+  uuid: string;
+}
+
+export type restaurantSectionsType = CategoryProps[];
 export interface ItemProductType {
   title: string;
   imageUrl: string;
-  description: string;
+  description?: string;
   uuid: string;
   price: number;
   amount?: number;
+  itemUuids?: itemUuidsType[];
+}
+
+export interface itemUuidsType {
+  classifications: any[];
+  description: string;
+  imageUrl: string;
+  price: number;
+  title: string;
+  uuid: string;
+}
+
+export interface OrderType {
+  imageUrl: string;
+  title: string;
+  itemDescription: string;
+  price: number;
+  amount: number;
+  uuid: string;
 }
 
 export interface CardProductProps {

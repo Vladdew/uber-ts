@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, FC } from "react";
 import { store } from "../../store";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useActions } from "../../hooks/useActions";
-import { ItemProductType } from "../../types/interfaces";
+import { ItemProductType, OrderType } from "../../types/interfaces";
 import { mainState } from "../../types/mainTypes";
 
 import {
@@ -14,11 +14,11 @@ import Loader from "../Loader";
 import Error from "../Error/Error";
 import "./Order.scss";
 
-export const Order = () => {
-  const state = useTypedSelector(s => s);
+export const Order: FC = () => {
+  const state: mainState = useTypedSelector(s => s);
   const [counter, setCount] = useState(1);
 
-  const order = selectOrder(state);
+  const order: OrderType = selectOrder(state);
   const isLoading = selectIsLoading(state);
   const error = selectRestaurantsListError(state);
 
@@ -42,17 +42,7 @@ export const Order = () => {
     if (counter <= 1) return;
     return setCount(counter - 1);
   };
-  const {
-    imageUrl,
-    title,
-    itemDescription,
-    price,
-  }: {
-    imageUrl: string;
-    title: string;
-    itemDescription: string;
-    price: string;
-  } = order;
+  const { imageUrl, title, itemDescription, price } = order;
 
   const addToCartHandler = (product: ItemProductType, amount: number) => {
     const payload = product;

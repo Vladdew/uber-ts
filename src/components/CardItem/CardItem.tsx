@@ -1,12 +1,12 @@
-import { FunctionComponent } from "react";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useActions } from "../../hooks/useActions";
 import { selectRestaurantCurency } from "../../store/selector";
 import { ItemProductType } from "../../types/interfaces";
+import { mainState } from "../../types/mainTypes";
 
 import "./CardItem.scss";
 
-export const CardItem: FunctionComponent<ItemProductType> = ({
+export const CardItem: React.FC<ItemProductType> = ({
   title,
   imageUrl,
   description,
@@ -15,7 +15,7 @@ export const CardItem: FunctionComponent<ItemProductType> = ({
 }) => {
   const { loadMenuItem } = useActions();
   const createOrder = (uuid: string) => loadMenuItem(uuid);
-  const state = useTypedSelector(state => state);
+  const state: mainState = useTypedSelector(state => state);
   const restaurantCurency = selectRestaurantCurency(state);
 
   return (
