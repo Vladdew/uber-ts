@@ -34,7 +34,7 @@ const Cart: React.FC = () => {
   });
 
   const changeQty = (param: string, uuid: string): void => {
-    const currentProduct = cart.find(product => product.uuid === uuid);
+    const currentProduct = cart.find((product: any) => product.uuid === uuid);
 
     if (param === "+") {
       currentProduct.amount += 1;
@@ -50,7 +50,7 @@ const Cart: React.FC = () => {
       <h1 className="cart__h1">Cart</h1>
       <div className="cart">
         <div className="cart__goods">
-          {cart.map(product => (
+          {cart.map((product: any) => (
             <CartProduct
               product={product}
               key={product.uuid}

@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { RestaurantCardProps } from "../../types/simpleTypes";
+import { RestaurantCardProps } from "../../types/interfaces";
 
 import "./RestaurantCard.scss";
 

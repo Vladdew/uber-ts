@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { HeaderStateProps } from "../../types/simpleTypes";
+import { HeaderStateProps } from "../../types/interfaces";
 
 import Input from "../Input";
 import "./Header.scss";

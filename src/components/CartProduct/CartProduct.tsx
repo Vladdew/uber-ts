@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import "./CartProduct.scss";
-import { ItemProductType, CardProductProps } from "../../types/simpleTypes";
+import { ItemProductType, CardProductProps } from "../../types/interfaces";
 
 const CartProduct: FunctionComponent<CardProductProps> = ({
   product,

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { store } from "../../store";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useActions } from "../../hooks/useActions";
-import { ItemProductType } from "../../types/simpleTypes";
+import { ItemProductType } from "../../types/interfaces";
 import { mainState } from "../../types/mainTypes";
 
 import {

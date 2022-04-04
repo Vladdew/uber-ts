@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { ErrorProps } from "../../types/simpleTypes";
+import { ErrorProps } from "../../types/interfaces";
 import "./Error.scss";
 
 export const Error: FunctionComponent<ErrorProps> = ({ message }) => {

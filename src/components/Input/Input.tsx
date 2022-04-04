@@ -1,7 +1,7 @@
 import { FunctionComponent, useState } from "react";
 import cx from "classnames";
 
-import { InputProps } from "../../types/simpleTypes";
+import { InputProps } from "../../types/interfaces";
 import "./Input.scss";
 
 export const Input: FunctionComponent<InputProps> = props => {

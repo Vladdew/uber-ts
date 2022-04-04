@@ -1,4 +1,5 @@
-import { ActionTypes, mainState, actionType } from "../types/mainTypes";
+import { mainState, ActionTypes } from "../types/mainTypes";
+import { ACTION_TYPES } from "../store/ActionTypes";
 
 const initialState: mainState = {
   restaurantsListData: null,
@@ -10,11 +11,29 @@ const initialState: mainState = {
   cart: [],
   totalCheckout: 0,
   totalItemCheckout: 0,
+  restaurantPage: null,
 };
 
-export function mainReducer(state = initialState, action: actionType) {
+export function mainReducer(
+  state = initialState,
+  action: ActionTypes
+): mainState {
   switch (action.type) {
-    case ActionTypes.SAVE_RESTAURANTS: {
+    case ACTION_TYPES.START_LOADING: {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+
+    case ACTION_TYPES.STOP_LOADING: {
+      return {
+        ...state,
+        isLoading: false,
+      };
+    }
+
+    case ACTION_TYPES.SAVE_RESTAURANTS: {
       const { payload } = action;
 
       return {
@@ -25,7 +44,7 @@ export function mainReducer(state = initialState, action: actionType) {
       };
     }
 
-    case ActionTypes.SAVE_RESTAURANT_PAGE: {
+    case ACTION_TYPES.SAVE_RESTAURANT_PAGE: {
       const { payload } = action;
 
       return {
@@ -35,7 +54,7 @@ export function mainReducer(state = initialState, action: actionType) {
       };
     }
 
-    case ActionTypes.SET_LOAD_RESTAURANTS_ERROR: {
+    case ACTION_TYPES.SET_LOAD_RESTAURANTS_ERROR: {
       const { payload } = action;
 
       return {
@@ -47,21 +66,7 @@ export function mainReducer(state = initialState, action: actionType) {
       };
     }
 
-    case ActionTypes.START_LOADING: {
-      return {
-        ...state,
-        isLoading: true,
-      };
-    }
-
-    case ActionTypes.STOP_LOADING: {
-      return {
-        ...state,
-        isLoading: false,
-      };
-    }
-
-    case ActionTypes.SET_ORDER: {
+    case ACTION_TYPES.SET_ORDER: {
       const { payload } = action;
 
       return {
@@ -70,7 +75,7 @@ export function mainReducer(state = initialState, action: actionType) {
       };
     }
 
-    case ActionTypes.ADD_TO_CART: {
+    case ACTION_TYPES.ADD_TO_CART: {
       const { payload } = action;
       const doWeHave = state.cart.find(
         product => product && product.uuid === payload.uuid
@@ -90,7 +95,7 @@ export function mainReducer(state = initialState, action: actionType) {
       };
     }
 
-    case ActionTypes.CHANGE_AMOUNT: {
+    case ACTION_TYPES.CHANGE_AMOUNT: {
       const { payload } = action;
       const curentProduct = state.cart.find(
         product => product.uuid === payload.uuid
@@ -113,7 +118,7 @@ export function mainReducer(state = initialState, action: actionType) {
       };
     }
 
-    case ActionTypes.RETURN_CART: {
+    case ACTION_TYPES.RETURN_CART: {
       const { payload } = action;
 
       return {
@@ -122,7 +127,7 @@ export function mainReducer(state = initialState, action: actionType) {
       };
     }
 
-    case ActionTypes.CALCULATE_CART_TOTAL: {
+    case ACTION_TYPES.CALCULATE_CART_TOTAL: {
       const { cart } = state;
       let productSum = 0;
       let productQty = 0;
@@ -139,7 +144,7 @@ export function mainReducer(state = initialState, action: actionType) {
       };
     }
 
-    case ActionTypes.SET_MODAL_WINDOW: {
+    case ACTION_TYPES.SET_MODAL_WINDOW: {
       const { payload } = action;
 
       return {

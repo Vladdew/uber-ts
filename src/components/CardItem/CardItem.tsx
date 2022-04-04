@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useActions } from "../../hooks/useActions";
 import { selectRestaurantCurency } from "../../store/selector";
-import { ItemProductType } from "../../types/simpleTypes";
+import { ItemProductType } from "../../types/interfaces";
 
 import "./CardItem.scss";
 

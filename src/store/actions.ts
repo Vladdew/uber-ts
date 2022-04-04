@@ -1,26 +1,50 @@
-import { ActionTypes, actionType } from "../types/mainTypes";
-import { Dispatch } from "redux";
+import { ACTION_TYPES } from "../store/ActionTypes";
 
-const BASE_URL = "https://mate-uber-eats-api.herokuapp.com/api/v1/";
+import { ItemProductType } from "../types/interfaces";
+
+function inferLiteralFromString<T extends string>(arg: T): T {
+  return arg;
+}
+
+export const saveRestaurants = (data: any[]) => ({
+  type: inferLiteralFromString(ACTION_TYPES.SAVE_RESTAURANTS),
+  payload: data,
+});
+
+export const saveRestaurantPage = (data: any[]) => ({
+  type: inferLiteralFromString(ACTION_TYPES.SAVE_RESTAURANT_PAGE),
+  payload: data,
+});
+
+export const setRestaurantsError = (error: string) => ({
+  type: inferLiteralFromString(ACTION_TYPES.SET_LOAD_RESTAURANTS_ERROR),
+  payload: error,
+});
+
+export const startLoading = () => ({
+  type: inferLiteralFromString(ACTION_TYPES.START_LOADING),
+});
+
+export const stopLoading = () => ({
+  type: inferLiteralFromString(ACTION_TYPES.STOP_LOADING),
+});
 
 export const setOrder = (uuid: string | null) => ({
-  type: ActionTypes.SET_ORDER,
+  type: inferLiteralFromString(ACTION_TYPES.SET_ORDER),
   payload: uuid,
 });
 
 export const calculateCartTotal = () => ({
-  type: ActionTypes.CALCULATE_CART_TOTAL,
+  type: inferLiteralFromString(ACTION_TYPES.CALCULATE_CART_TOTAL),
 });
 
-export const addToCart = (product: any) => {
-  return {
-    type: ActionTypes.ADD_TO_CART,
-    payload: product,
-  };
-};
+export const addToCart = (product: ItemProductType) => ({
+  type: inferLiteralFromString(ACTION_TYPES.ADD_TO_CART),
+  payload: product,
+});
 
 export const changeAmount = (amount: number, uuid: string) => ({
-  type: ActionTypes.CHANGE_AMOUNT,
+  type: inferLiteralFromString(ACTION_TYPES.CHANGE_AMOUNT),
   payload: {
     amount,
     uuid,
@@ -28,86 +52,11 @@ export const changeAmount = (amount: number, uuid: string) => ({
 });
 
 export const returnCartFromLS = (cart: any[]) => ({
-  type: ActionTypes.RETURN_CART,
+  type: inferLiteralFromString(ACTION_TYPES.RETURN_CART),
   payload: cart,
 });
 
 export const setModalWindow = (bool: boolean) => ({
-  type: ActionTypes.SET_MODAL_WINDOW,
+  type: inferLiteralFromString(ACTION_TYPES.SET_MODAL_WINDOW),
   payload: bool,
 });
-
-export const loadRestaurants = () => (dispatch: Dispatch<actionType>) => {
-  dispatch({ type: ActionTypes.START_LOADING });
-  fetch(`${BASE_URL}restaurants/`)
-    .then(response => response.json())
-    .then(({ data }) =>
-      dispatch({
-        type: ActionTypes.SAVE_RESTAURANTS,
-        payload: data,
-      })
-    )
-    .catch(error =>
-      dispatch({
-        type: ActionTypes.SET_LOAD_RESTAURANTS_ERROR,
-        payload: error.message,
-      })
-    )
-    .finally(() =>
-      dispatch({
-        type: ActionTypes.STOP_LOADING,
-      })
-    );
-};
-
-export const loadRestaurantPage =
-  (id: string) => (dispatch: Dispatch<actionType>) => {
-    dispatch({ type: ActionTypes.START_LOADING });
-    fetch(`${BASE_URL}restaurants/${id}`)
-      .then(response => response.json())
-      .then(({ data }) =>
-        dispatch({
-          type: ActionTypes.SAVE_RESTAURANT_PAGE,
-          payload: data,
-        })
-      )
-      .catch(error =>
-        dispatch({
-          type: ActionTypes.SET_LOAD_RESTAURANTS_ERROR,
-          payload: error.message,
-        })
-      )
-      .finally(() =>
-        dispatch({
-          type: ActionTypes.STOP_LOADING,
-        })
-      );
-  };
-
-export const loadMenuItem =
-  (uuid: string) => (dispatch: Dispatch<actionType>) => {
-    dispatch({
-      type: ActionTypes.SET_MODAL_WINDOW,
-      payload: true,
-    });
-    dispatch({ type: ActionTypes.START_LOADING });
-    fetch(`${BASE_URL}menu-items/${uuid}`)
-      .then(response => response.json())
-      .then(({ data }) =>
-        dispatch({
-          type: ActionTypes.SET_ORDER,
-          payload: data,
-        })
-      )
-      .catch(error =>
-        dispatch({
-          type: ActionTypes.SET_LOAD_RESTAURANTS_ERROR,
-          payload: error.message,
-        })
-      )
-      .finally(() =>
-        dispatch({
-          type: ActionTypes.STOP_LOADING,
-        })
-      );
-  };

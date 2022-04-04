@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { SelectProps } from "../../types/simpleTypes";
+import { SelectProps } from "../../types/interfaces";
 
 import "./Select.scss";
 

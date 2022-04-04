@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 import { selectRestorauntItems } from "../../store/selector";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { CardItem } from "../CardItem/CardItem";
-import { ItemProductType } from "../../types/simpleTypes";
+import { ItemProductType } from "../../types/interfaces";
 import "./Section.scss";
 
 interface SectionProps {
